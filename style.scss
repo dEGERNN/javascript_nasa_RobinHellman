@@ -1,0 +1,249 @@
+$main-color: rgb(186, 186, 186);
+$secondary-color: rgb(92, 92, 215);
+$text-color: #070d3a;
+$darkmode-main-color: #070d3a;
+$darkmode-secondary-color: lighten(#070d3a, 15%);
+$darkmode-text-color: rgb(192, 192, 192);
+$brand-color: #070d3a;
+*,
+
+html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Open Sans", sans-serif;
+    background-color: $main-color;
+    color: $text-color;
+
+}
+
+h1 {
+    text-transform: uppercase;
+}
+
+h3 {
+    //Centrera text
+    text-align: center;
+    padding-bottom: 1rem;
+}
+
+header {
+    background-color: $secondary-color;
+    display: flex;
+    //Trycker ifrån h1 och knappen så de ligger på varsin sida
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 2rem;
+    .switchBtn {
+        position: relative;
+        display: inline-lock;
+        width: 50px;
+        height: 28px;
+        /* Gömmer default HTML checkbox */
+        input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+
+            &:checked {
+                + {
+                    .slider {
+                        background-color: $darkmode-text-color;
+
+                        &:before {
+                            //Påverkar cirkeln
+                            transform: translateX(23px);
+                            background-color: $darkmode-main-color;
+                        }
+                    }
+                }
+            }
+
+            &:focus {
+
+                //När den är markerad klickad på
+                + {
+                    .slider {
+                        //Väljer alla .slider som är placerade direkt efter input
+                        //Skugga när man klickar
+                        box-shadow: 0 0 2px $darkmode-main-color;
+                    }
+                }
+            }
+        }
+
+        /* slider */
+        .slider {
+            //Lila BG 
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: $darkmode-main-color;
+            border-radius: 34px;
+            transition: .4s;
+
+            &:before {
+                //Cirkeln i slider
+                position: absolute;
+                content: "";
+                height: 20px;
+                width: 20px;
+                left: 4px;
+                bottom: 4px;
+                background-color: $darkmode-text-color;
+                border-radius: 50%;
+                transition: .4s;
+            }
+        }
+    }
+
+
+}
+
+.main-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    #name-form {
+
+        max-width: 550px;
+        //name-form boxen lägger sig i mitten och har 3rem luft uppe och nere
+        margin: 3rem 1rem;
+        background-color: $secondary-color;
+        padding: 2rem;
+        border-radius: 10px;
+
+
+        h2 {
+            text-align: center;
+            display: block;
+            font-weight: 700;
+            font-size: 2rem;
+            margin-bottom: 1.4rem;
+        }
+
+        //Input och button
+        input,
+        button {
+            //så att de beter sig som block element, hamnar på olika rader
+            display: block;
+            //tar upp 100% på sin rad
+            width: 100%;
+            padding: 1rem;
+            border-radius: 4px;
+            border: none;
+            border: 4px solid transparent;
+
+        }
+
+        label {
+            //sträcker sig över den tillåtna bredden
+            display: block;
+            font-weight: 700;
+            color: $text-color;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        input {
+            margin-bottom: 2rem;
+            font-family: "Open Sans", sans-serif;
+            font-size: 1rem;
+            border-bottom: 4px solid rgb(196, 196, 196);
+
+            &::placeholder {
+                font-family: "Open Sans", sans-serif;
+            }
+
+            &.focusBorder {
+                //För att ta bort default focus
+                outline: none;
+                //Ersätter border-bottom stylen
+                border: 4px outset $brand-color;
+            }
+        }
+        button {
+            background-color: $brand-color;
+            color: white;
+            font-family: "Open Sans", sans-serif;
+            font-weight: 700;
+            transition: 0.5s;
+            text-transform: uppercase;
+            //Style när knappen är disabled
+            &:disabled {
+                background-color: lightgrey;
+                font-weight: 600;
+                color: $text-color;
+                cursor: not-allowed;
+            }
+        }
+    }
+}
+
+#curiosity {
+    //för att få korten i mitten på en rad
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    //Jag vill att korten ska hålla sin bredd och inte gå mellan två spalt så att ett kort blir ensamt
+    @media (min-width:995px) {
+        max-width: 995px;
+        margin: auto;
+
+    }
+    @media (min-width:1328px) {
+        max-width: 1328px;
+        margin: auto;
+
+    }
+    .nasa-card {
+        border: 1px solid lightgrey;
+        background-color: white;
+        border-radius: 5px;
+        margin: 1rem;
+        padding: 1rem;
+        width: 300px;
+        img {
+            width: 100%;
+            border-radius: 5px;
+
+        }
+        p {
+            text-align: center;
+        }
+    }
+}
+
+#resultElement {
+    color: $brand-color;
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+
+}
+
+// Skapa upp en klass för darkmode 
+.dark {
+
+    header {
+        background-color: $darkmode-secondary-color;
+    }
+    background-color: $darkmode-main-color;
+    color: $darkmode-text-color;
+    #name-form {
+        background-color: $darkmode-secondary-color;
+        label {
+            color: $darkmode-text-color;
+        }
+    }
+    .nasa-card {
+        color: $text-color;
+    }
+}
